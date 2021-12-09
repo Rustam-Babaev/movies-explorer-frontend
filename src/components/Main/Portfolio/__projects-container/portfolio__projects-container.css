@@ -1,0 +1,16 @@
+.portfolio__projects-container {
+    padding: 0;
+    margin: 50px 0 116px 0;
+}
+
+@media screen and (max-width:768px) {
+    .portfolio__projects-container {
+        margin: 50px 0 90px 0;
+    }
+}
+
+@media screen and (max-width:320px) {
+    .portfolio__projects-container {
+        margin: 40px 0 70px 0;
+    }
+}

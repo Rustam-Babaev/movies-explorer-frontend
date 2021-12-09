@@ -1,0 +1,10 @@
+.search-form__filter-container {
+    margin: 26px 0 0 0;
+    display: flex;
+}
+
+@media screen and (max-width:320px) {
+    .search-form__filter-container {
+        margin: 30px 0 0 0;
+    }
+}

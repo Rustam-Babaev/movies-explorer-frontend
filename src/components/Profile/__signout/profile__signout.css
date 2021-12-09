@@ -1,0 +1,23 @@
+.profile__signout {
+    padding: 0;
+    margin: 16px 0 70px 0;
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 16px;
+    color: #EE3465;
+    border: none;
+    background-color: #202020;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.profile__signout:hover {
+    opacity: 0.85;
+}
+
+@media screen and (max-width:550px) {
+    .profile__signout {
+        font-size: 12px;
+        line-height: 15px;
+    }
+}

@@ -1,0 +1,11 @@
+.movies-card__footer {
+    margin: 14px 0 0 0;
+    display: flex;
+    flex-direction: column;
+}
+
+@media screen and (max-width:320px) {
+    .movies-card__footer {
+        margin: 15px 0 0 0
+    }
+}

@@ -1,0 +1,20 @@
+.navigation__link_type_accaunt-name {
+    margin: 0 0 0 50px;
+    padding: 0;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1.14;
+    text-decoration: none;
+    color: white;
+    transition: 0.3s;
+}
+
+.navigation__link_type_accaunt-name:hover {
+    opacity: 0.6;
+}
+
+@media screen and (max-width:768px) {
+    .navigation__link_type_accaunt-name {
+        margin: 0;
+    }
+}

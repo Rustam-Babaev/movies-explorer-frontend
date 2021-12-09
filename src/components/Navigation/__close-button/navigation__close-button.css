@@ -1,0 +1,29 @@
+.navigation__close-button {
+    align-self: flex-end;
+    padding: 0;
+    margin: 22.4px 22.4px 105.44px 0;
+    width: 22px;
+    min-height: 22px;
+    border: none;
+    background-color: #202020;
+    background-size: cover;
+    background-image: url(../../../images/close.svg);
+    cursor: pointer;
+}
+
+@media screen and (min-width:768px) {
+    .navigation__close-button {
+        visibility: hidden;
+        opacity: 0;
+    }
+}
+
+@media screen and (max-width:320px) {
+    .navigation__close-button {
+        margin: 13.4px 13.4px 99.4px 0;
+        top: 0;
+        right: 0;
+        width: 22px;
+        min-height: 22px;
+    }
+}

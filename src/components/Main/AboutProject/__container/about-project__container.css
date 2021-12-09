@@ -1,0 +1,9 @@
+.about-project__container {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    min-height: 585px;
+    width: calc(100% - 4.57%*2);
+    margin: 0 auto;
+    max-width: 1280px;
+}

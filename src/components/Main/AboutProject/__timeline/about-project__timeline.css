@@ -1,0 +1,16 @@
+.about-project__timeline {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    line-height: 1.21;
+    font-weight: 500;
+    color: #8B8B8B;
+}
+
+@media screen and (max-width:320px) {
+    .about-project__timeline {
+        font-size: 11px;
+        line-height: 1.18;
+    }
+}

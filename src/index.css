@@ -1,0 +1,51 @@
+@import url(./vendor/normalize.css);
+@import url(./fonts/fonts.css);
+@import url(./components/App/App.css);
+
+/* header */
+
+@import url(./components/Header/Header.css);
+
+/* Main */
+
+@import url(./components/Main/Main.css);
+
+/* movies */
+
+@import url(./components/SearchForm/SearchForm.css);
+
+/* movies */
+
+@import url(./components/Movies/Movies.css);
+
+/* footer */
+
+@import url(./components/Footer/Footer.css);
+
+/* pageNotFound */
+
+@import url(./components/PageNotFound/PageNotFound.css);
+
+/* navigation */
+
+@import url(./components/Navigation/Navigation.css);
+
+/* movieCardList */
+
+@import url(./components/MoviesCardList/MoviesCardList.css);
+
+/* movieCard */
+
+@import url(./components/MoviesCard/MoviesCard.css);
+
+/* Login*/
+
+@import url(./components/Login/Login.css);
+
+/* Login*/
+
+@import url(./components/Register/Register.css);
+
+/* profile*/
+
+@import url(./components/Profile/Profile.css);

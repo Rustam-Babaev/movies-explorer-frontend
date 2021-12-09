@@ -1,0 +1,7 @@
+@import url(./__container/promo__container.css);
+@import url(./__title/promo__title.css);
+@import url(./__img/promo__img.css);
+.promo {
+    background-color: #073042;
+    min-width: 320px;
+}

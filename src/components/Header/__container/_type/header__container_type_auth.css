@@ -1,0 +1,24 @@
+.header__container_type_auth {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin: 70px 0 0 0;
+    width: 100%;
+    height: auto;
+}
+
+@media screen and (max-width:768px) {
+    .header__container_type_auth {
+        min-height: 310px;
+        justify-content: flex-end;
+    }
+}
+
+@media screen and (max-width:520px) {
+    .header__container_type_auth {
+        min-height: auto;
+        margin: 56px 0 0 0;
+        align-items: center;
+    }
+}

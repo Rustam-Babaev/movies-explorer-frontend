@@ -1,0 +1,9 @@
+.login__submit_type_register {
+    margin: 69px 0 0 0;
+}
+
+@media screen and (max-width:520px) {
+    .login__submit_type_register {
+        margin: 157px 0 0 0;
+    }
+}

@@ -1,0 +1,14 @@
+.footer__underline-container {
+    margin: 20px 0 20px 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+@media screen and (max-width:400px) {
+    .footer__underline-container {
+        margin: 30px 0 10px 0;
+        flex-direction: column-reverse;
+        justify-content: center;
+        align-items: center;
+    }
+}
