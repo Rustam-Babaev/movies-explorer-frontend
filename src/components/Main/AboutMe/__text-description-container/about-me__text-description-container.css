@@ -1,0 +1,12 @@
+.about-me__text-description-container {
+    display: flex;
+    flex-direction: column;
+    margin: 0 40px 0 0;
+    max-width: 600px;
+}
+
+@media screen and (max-width:550px) {
+    .about-me__text-description-container {
+        margin: 40px 0 0 0;
+    }
+}

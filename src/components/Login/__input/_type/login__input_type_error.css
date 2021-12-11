@@ -1,0 +1,7 @@
+.login__input_type_error {
+    border-bottom: 1px solid #FF0000;
+}
+
+.login__input_type_error:focus {
+    border-bottom: 1px solid #FF0000;
+}

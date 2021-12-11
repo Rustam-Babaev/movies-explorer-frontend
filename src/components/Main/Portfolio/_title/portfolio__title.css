@@ -1,0 +1,23 @@
+.portfolio__title {
+    margin: 100px 0 0 0;
+    padding: 0;
+    color: #8B8B8B;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 1.11;
+}
+
+@media screen and (max-width:768px) {
+    .portfolio__title {
+        margin: 90px 0 0 0;
+        color: #A0A0A0;
+    }
+}
+
+@media screen and (max-width:320px) {
+    .portfolio__title {
+        margin: 70px 0 0 0;
+        font-size: 14px;
+        line-height: 20px;
+    }
+}

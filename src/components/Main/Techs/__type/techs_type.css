@@ -1,0 +1,20 @@
+.techs_type {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 60px;
+    background-color: #303030;
+    border-radius: 10px;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 1.21;
+    letter-spacing: -0.04em;
+}
+
+@media screen and (max-width:768px) {
+    .techs_type {
+        min-height: 57px;
+        font-size: 12px;
+        line-height: 1.25;
+    }
+}

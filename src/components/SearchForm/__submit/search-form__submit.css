@@ -1,0 +1,29 @@
+.search-form__submit {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    background: #4285F4;
+    margin: 10px 10px 10px 20px;
+    border-radius: 5px;
+    min-width: 100px;
+    min-height: 52px;
+    font-weight: 500;
+    font-size: 14px;
+    color: white;
+    line-height: 1.29;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.search-form__submit:hover {
+    background: #2371f0;
+}
+
+@media screen and (max-width:320px) {
+    .search-form__submit {
+        margin: 6px 6px 6px 20px;
+        min-width: 80px;
+        min-height: 44px;
+    }
+}

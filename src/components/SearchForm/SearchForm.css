@@ -1,0 +1,19 @@
+@import url(./__container/search-form__container.css);
+@import url(./__input/search-form__input.css);
+@import url(./__submit/search-form__submit.css);
+@import url(./__checkbox/search-form__checkbox.css);
+@import url(./__checkbox-container/search-form__checkbox-container.css);
+@import url(./__checkbox-flag/search-form__checkbox-flag.css);
+@import url(./__checkbox-name/search-form__checkbox-name.css);
+@import url(./__filter-container/search-form__filter-container.css);
+@import url(./__underline/search-form__underline.css);
+@import url(./__input-error/search-form__input-error.css);
+.search-form {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    min-height: 74px;
+    width: calc(100% - 4.57%*2);
+    margin: 0 auto;
+    max-width: 1280px;
+}

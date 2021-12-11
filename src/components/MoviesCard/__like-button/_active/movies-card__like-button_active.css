@@ -1,0 +1,18 @@
+.movies-card__like-button_active {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 24px;
+    height: 24px;
+    background-color: #313131;
+    border-radius: 100px;
+    border: none;
+    cursor: pointer;
+}
+
+.movies-card__like-button_active::before {
+    content: '';
+    width: 10px;
+    height: 8.5px;
+    background-image: url(../../../../images/like_active.svg);
+}

@@ -1,0 +1,19 @@
+.movie-card-list__more {
+    margin: 50px 0 80px 0;
+    width: 320px;
+    min-height: 36px;
+    box-sizing: border-box;
+    background-color: #2F2F2F;
+    border-radius: 6px;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 1.25;
+    border: none;
+    color: white;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.movie-card-list__more:hover {
+    background-color: rgb(73, 73, 73);
+}

@@ -1,0 +1,16 @@
+@import url(./__accaunt-icon/navigation__accaunt-icon.css);
+@import url(./__link/_type/navigation__link_type_accaunt-name.css);
+@import url(./_visibility/navigation_visibility_hidden.css);
+@import url(./_visibility/navigation_visibility_visible.css);
+@import url(./__link/navigation__link.css);
+@import url(./__container/navigation__container.css);
+@import url(./__accaunt-container/navigation__accaunt-container.css);
+@import url(./__close-button/navigation__close-button.css);
+@import url(./__burger-icon/navigation__burger-icon.css);
+@import url(./__link/_is-active/navigation__link_is-active.css);
+@import url(./__link/_type/navigation__link_type_main.css);
+.navigation {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

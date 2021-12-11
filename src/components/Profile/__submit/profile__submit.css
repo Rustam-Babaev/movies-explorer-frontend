@@ -1,0 +1,29 @@
+.profile__submit {
+    margin: 200px 0 0 0;
+    font-weight: normal;
+    font-size: 13px;
+    line-height: 16px;
+    color: #FFFFFF;
+    border: none;
+    background-color: #202020;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.profile__submit:hover {
+    opacity: 0.85;
+}
+
+@media screen and (max-width:768px) {
+    .profile__submit {
+        margin: 185px 0 0 0;
+    }
+}
+
+@media screen and (max-width:550px) {
+    .profile__submit {
+        margin: 357px 0 0 0;
+        font-size: 12px;
+        line-height: 15px;
+    }
+}

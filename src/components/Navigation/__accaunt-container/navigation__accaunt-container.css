@@ -1,0 +1,18 @@
+.navigation__accaunt-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+}
+
+@media screen and (max-width:768px) {
+    .navigation__accaunt-container {
+        margin: 621px 0 0 0;
+    }
+}
+
+@media screen and (max-width:320px) {
+    .navigation__accaunt-container {
+        margin: 444px 0 0 0;
+    }
+}

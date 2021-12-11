@@ -1,0 +1,17 @@
+.search-form__underline {
+    margin: 44px 0 10px 0;
+    border: 0;
+    border-bottom: 1px solid hsl(0, 0%, 67%, 0.2);
+}
+
+@media screen and (max-width:768px) {
+    .search-form__underline {
+        margin: 52px 0 10px 0;
+    }
+}
+
+@media screen and (max-width:320px) {
+    .search-form__underline {
+        margin: 64px 0 10px 0;
+    }
+}

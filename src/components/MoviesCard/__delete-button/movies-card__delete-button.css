@@ -1,0 +1,21 @@
+.movies-card__delete-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 24px;
+    height: 24px;
+    background-color: #313131;
+    border-radius: 100px;
+    border: none;
+    cursor: pointer;
+    opacity: 0;
+    transition: 0.2s;
+}
+
+.movies-card__delete-button::before {
+    content: '';
+    width: 9px;
+    height: 9px;
+    background-image: url(../../../images/close.svg);
+    background-size: contain;
+}

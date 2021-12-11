@@ -1,0 +1,11 @@
+.page-not-found {
+    background-color: #202020;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center
+}
+
+@import url(./__title/page-not-found__title.css);
+@import url(./__subtitle/page-not-found__subtitle.css);
+@import url(./__link/page-not-found__link.css);

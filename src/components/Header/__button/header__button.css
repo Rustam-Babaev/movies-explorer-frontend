@@ -1,0 +1,27 @@
+.header__button {
+    color: black;
+    font-weight: 500;
+    background-color: #3DDC84;
+    font-size: 12px;
+    line-height: 1.33;
+    border-radius: 3px;
+    border: 0;
+    min-width: 72px;
+    min-height: 32px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.header__button:hover {
+    opacity: .6;
+}
+
+@media screen and (max-width: 320px) {
+    .header__button {
+        margin: 0 0 0 14px;
+        font-size: 10px;
+        line-height: 1.6;
+        min-width: 54px;
+        min-height: 26px;
+    }
+}

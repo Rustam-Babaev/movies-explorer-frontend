@@ -1,0 +1,11 @@
+.portfolio__project-underline {
+    margin: 19px 0 20px 0;
+    border: 0;
+    border-bottom: 1px solid #424242;
+}
+
+@media screen and (max-width:768px) {
+    .portfolio__project-underline {
+        border-bottom: 1px solid #E6E6E6;
+    }
+}

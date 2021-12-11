@@ -1,0 +1,21 @@
+.techs__types-container {
+    margin: 100px 0 100px 0;
+    display: grid;
+    justify-content: center;
+    grid-template-columns: repeat(auto-fit, 90px);
+    gap: 10px;
+}
+
+@media screen and (max-width:768px) {
+    .techs__types-container {
+        margin: 83px 0 90px 0;
+        grid-template-columns: repeat(auto-fit, 84px);
+    }
+}
+
+@media screen and (max-width:320px) {
+    .techs__types-container {
+        grid-template-columns: repeat(2, 84px);
+        margin: 50px 0 70px 0;
+    }
+}

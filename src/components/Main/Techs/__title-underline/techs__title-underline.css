@@ -1,0 +1,12 @@
+.techs__title-underline {
+    margin: 23px 0 0 0;
+    border: 0;
+    border-bottom: 1px solid #DADADA;
+}
+
+@media screen and (max-width:320px) {
+    .techs__title-underline {
+        margin: 28px 0 0 0;
+        border-color: black;
+    }
+}

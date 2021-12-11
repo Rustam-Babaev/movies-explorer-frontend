@@ -1,0 +1,11 @@
+@import url(./__container/header__container.css);
+@import url(./__logo/header__logo.css);
+@import url(./_type/header_type_main.css);
+@import url(./_type/header_type_deafault.css);
+@import url(./__links-container/header__links-container.css);
+@import url(./__link/header__link.css);
+@import url(./__link/_type/header__link_type_login.css);
+@import url(./__button/header__button.css);
+@import url(./__container/_type/header__container_type_auth.css);
+@import url(./__phrase/header__phrase.css);
+.header {}

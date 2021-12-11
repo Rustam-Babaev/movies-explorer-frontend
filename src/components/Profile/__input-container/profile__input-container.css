@@ -1,0 +1,5 @@
+.profile__input-container {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}

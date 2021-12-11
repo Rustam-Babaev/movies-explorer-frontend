@@ -1,0 +1,33 @@
+.portfolio__project-link {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 29px;
+    transition: 0.4s;
+}
+
+.portfolio__project-link::before {
+    content: '';
+    width: 29px;
+    height: 28px;
+    background-image: url(../../../../images/project_link.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
+
+.portfolio__project-link:hover {
+    transform: scale(1.3);
+}
+
+@media screen and (max-width:768px) {
+    .portfolio__project-link::before {
+        width: 27px;
+    }
+}
+
+@media screen and (max-width:320px) {
+    .portfolio__project-link::before {
+        width: 11px;
+    }
+}

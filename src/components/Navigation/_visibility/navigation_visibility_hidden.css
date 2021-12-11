@@ -1,0 +1,7 @@
+@media screen and (max-width:768px) {
+    .navigation_visibility_hidden {
+        visibility: hidden;
+        opacity: 0;
+        transition: visibility 0s, all 0.3s linear;
+    }
+}

@@ -1,0 +1,24 @@
+@import url("./__title/profile__title.css");
+@import url("./__form/profile__form.css");
+@import url("./__input-container/profile__input-container.css");
+@import url("./__input-name/profile__input-name.css");
+@import url("./__input/profile__input.css");
+@import url("./__underline/profile__underline.css");
+@import url("./__input-error/profile__input-error.css");
+@import url("./__input-error/_visible/profile__input-error_visible.css");
+@import url("./__submit/profile__submit.css");
+@import url("./__signout/profile__signout.css");
+.profile {
+    width: 410px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+@media screen and (max-width:550px) {
+    .profile {
+        width: 260px;
+    }
+}

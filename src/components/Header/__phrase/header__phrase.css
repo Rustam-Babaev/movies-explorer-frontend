@@ -1,0 +1,13 @@
+.header__phrase {
+    margin: 40px 0 40px 0;
+    padding: 0;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 29px;
+}
+
+@media screen and (max-width:520px) {
+    .header__phrase {
+        margin: 50px 0 80px 0;
+    }
+}
