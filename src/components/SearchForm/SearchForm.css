@@ -7,6 +7,7 @@
 @import url(./__checkbox-name/search-form__checkbox-name.css);
 @import url(./__filter-container/search-form__filter-container.css);
 @import url(./__underline/search-form__underline.css);
+@import url(./__input-error/search-form__input-error.css);
 .search-form {
     display: flex;
     flex-direction: column;
