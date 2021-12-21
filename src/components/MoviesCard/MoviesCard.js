@@ -1,11 +1,12 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import Spinner from "../Spinner/Spinner";
 
 function MoviesCard({ card, isSavedCards = false, onCardLike, onCardDelete }) {
-  const user = {
-    _id: 111,
-  };
-  const isLiked = card.likes.some((i) => i === user._id);
-  const cardLikeIconClassName = `movies-card__like-button ${isLiked && "movies-card__like-button_active"}`;
+  const deleteLoadingId = useSelector((state) => state.loader.deleteLoadingId);
+  const savedMovies = useSelector((state) => state.movies.savedMovies);
+  const [isSaved, setIsSaved] = useState(false);
+  const cardLikeIconClassName = `movies-card__like-button ${isSaved && "movies-card__like-button_active"}`;
 
   function handleLikeClick() {
     onCardLike(card);
@@ -15,14 +16,26 @@ function MoviesCard({ card, isSavedCards = false, onCardLike, onCardDelete }) {
     onCardDelete(card);
   }
 
+  useEffect(() => {
+    setIsSaved(savedMovies.some((movie) => movie.movieId === card.movieId));
+  }, [card.movieId, savedMovies]);
+
   return (
     <figure className="movies-card">
-      <img src={card.link} alt={card.name} className="movies-card__image" />
+      <a target="_blank" href={card.trailer} rel="noreferrer">
+        <img src={card.image} alt={card.nameRU} className="movies-card__image" />
+      </a>
       <figcaption className="movies-card__footer">
         <div className="movies-card__description-container">
-          <h2 className="movies-card__title">{card.name}</h2>
+          <h2 className="movies-card__title">{card.nameRU}</h2>
           {isSavedCards ? (
-            <button type="button" aria-label="Удалить" className="movies-card__delete-button" onClick={handleDeleteClick}></button>
+            deleteLoadingId === card._id ? (
+              <Spinner></Spinner>
+            ) : (
+              <button type="button" aria-label="Удалить" className="movies-card__delete-button" onClick={handleDeleteClick}></button>
+            )
+          ) : deleteLoadingId === card._id ? (
+            <Spinner></Spinner>
           ) : (
             <button type="button" aria-label="Поставить лайк" className={cardLikeIconClassName} onClick={handleLikeClick}></button>
           )}

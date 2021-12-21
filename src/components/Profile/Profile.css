@@ -8,6 +8,7 @@
 @import url("./__input-error/_visible/profile__input-error_visible.css");
 @import url("./__submit/profile__submit.css");
 @import url("./__signout/profile__signout.css");
+@import url("./__submit/_dissable/profile__submit_dissable.css");
 .profile {
     width: 410px;
     margin: 0 auto;

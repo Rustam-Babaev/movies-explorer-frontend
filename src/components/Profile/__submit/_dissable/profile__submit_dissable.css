@@ -1,0 +1,8 @@
+.profile__submit_dissable {
+    opacity: 0.7;
+    cursor: auto;
+}
+
+.profile__submit_dissable:hover {
+    opacity: 0.7;
+}

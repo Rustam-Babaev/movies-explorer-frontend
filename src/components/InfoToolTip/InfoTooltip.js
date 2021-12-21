@@ -1,0 +1,22 @@
+import React from "react";
+import confirm from "../../images/confirm.svg";
+import reject from "../../images/rejected.svg";
+
+export default function InfoTooltip({ isConfirm, onClose, isOpen, message }) {
+  const popupClassName = isOpen ? "popup popup_opened" : "popup";
+  const messageText = message ? message : isConfirm ? "Вы успешно зарегистрировались!" : "Что-то пошло не так! Попробуйте ещё раз.";
+  return (
+    <div className={popupClassName}>
+      <div className="popup__container">
+        <img
+          loading="lazy"
+          src={isConfirm ? confirm : reject}
+          alt={isConfirm ? "confirm" : "reject"}
+          className="popup__image popup__image_type_confirmation"
+        />
+        <h2 className="popup__title popup__title_type_confirmation">{messageText}</h2>
+        <button type="button" aria-label="Закрыть" className="popup__close-button" onClick={onClose}></button>
+      </div>
+    </div>
+  );
+}

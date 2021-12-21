@@ -10,13 +10,17 @@
 
 @import url(./components/Main/Main.css);
 
-/* movies */
+/* searchForm */
 
 @import url(./components/SearchForm/SearchForm.css);
 
 /* movies */
 
 @import url(./components/Movies/Movies.css);
+
+/* movies */
+
+@import url(./components/SavedMovies/SavedMovies.css);
 
 /* footer */
 
@@ -49,3 +53,11 @@
 /* profile*/
 
 @import url(./components/Profile/Profile.css);
+
+/* infoTooltip*/
+
+@import url(./components/InfoTooltip/InfoTooltip.css);
+
+/* spinner*/
+
+@import url(./components/Spinner/Spinner.css);

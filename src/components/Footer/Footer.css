@@ -1,5 +1,6 @@
 .footer {
     background-color: #202020;
+    flex-shrink: 0;
 }
 
 @import url(./__container/footer__container.css);

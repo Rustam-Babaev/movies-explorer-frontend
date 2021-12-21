@@ -1,36 +1,23 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Header from "../Header/Header";
+import { useFormWithValidation } from "../../hooks/useFormWithValidation/useFormWithValidation";
 
 export default function Login({ onLogin }) {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [errEmail, setErrEmail] = useState("");
-  const [errPassword, setErrPassword] = useState("");
-
-  const handleChange = (evt) => {
-    const { name, value } = evt.target;
-    if (name === "email") {
-      setEmail(value);
-      setErrEmail(evt.target.validationMessage);
-    } else {
-      setPassword(value);
-      setErrPassword(evt.target.validationMessage);
-    }
-  };
+  const [values, handleChange, errors, isValid] = useFormWithValidation();
+  const { email, password } = values;
+  const [submitClassName, setSubmitClassName] = useState("login__submit login__submit_disable");
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    if (!email || !password) {
-      return;
+    if (isValid) {
+      onLogin(email, password);
     }
-    onLogin(email, password);
   };
 
   useEffect(() => {
-    setEmail("");
-    setPassword("");
-  }, []);
+    isValid ? setSubmitClassName("login__submit") : setSubmitClassName("login__submit login__submit_disable");
+  }, [isValid]);
 
   return (
     <div className="login">
@@ -48,9 +35,9 @@ export default function Login({ onLogin }) {
           required
           className="login__input "
           onChange={handleChange}
-          value={email}
+          value={email || ""}
         />
-        <span className="login__input-error">{errEmail}</span>
+        <span className="login__input-error">{errors.email}</span>
         <h3 className="login__input-name">Пароль</h3>
         <input
           type="password"
@@ -62,10 +49,10 @@ export default function Login({ onLogin }) {
           required
           className="login__input "
           onChange={handleChange}
-          value={password}
+          value={password || ""}
         />
-        <span className="login__input-error">{errPassword}</span>
-        <button type="submit" className="login__submit ">
+        <span className="login__input-error">{errors.password}</span>
+        <button type="submit" className={submitClassName}>
           Войти
         </button>
         <p className="login__text">

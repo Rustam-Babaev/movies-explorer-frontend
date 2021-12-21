@@ -1,4 +1,5 @@
-.header__button {
+.main__header-button {
+    margin: 0 0 0 20px;
     color: black;
     font-weight: 500;
     background-color: #3DDC84;
@@ -12,12 +13,12 @@
     transition: 0.3s;
 }
 
-.header__button:hover {
+.main__header-button:hover {
     opacity: .6;
 }
 
 @media screen and (max-width: 320px) {
-    .header__button {
+    .main__header-button {
         margin: 0 0 0 14px;
         font-size: 10px;
         line-height: 1.6;

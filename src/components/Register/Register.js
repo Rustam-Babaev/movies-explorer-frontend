@@ -1,44 +1,42 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Header from "../Header/Header";
+import { useFormWithValidation } from "../../hooks/useFormWithValidation/useFormWithValidation";
+import { apiAuth } from "../../utils/MainApi";
 
 export default function Register({ onInfoTooltip }) {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [name, setName] = useState("");
-  const [errEmail, setErrEmail] = useState("");
-  const [errPassword, setErrPassword] = useState("");
-  const [errName, setErrName] = useState("");
+  let navigate = useNavigate();
+  const [values, handleChange, errors, isValid, resetForm] = useFormWithValidation();
+  const { name, email, password } = values;
+  const [submitClassName, setSubmitClassName] = useState("login__submit login__submit_type_register login__submit_disable");
 
-  const handleChange = (evt) => {
-    const { name, value } = evt.target;
-    if (name === "email") {
-      setEmail(value);
-      setErrEmail(evt.target.validationMessage);
-    } else if (name === "password") {
-      setPassword(value);
-      setErrPassword(evt.target.validationMessage);
-    } else {
-      setName(value);
-      setErrName(evt.target.validationMessage);
+  // Отправляем данные нового пользователя на сервер и  в зависимости какой ответ пришел показываем popup confirmation, делаем редирект на страницу входа
+  const handleSubmit = (evt) => {
+    evt.preventDefault();
+    if (isValid) {
+      apiAuth
+        .register(email, password, name)
+        .then(() => {
+          onInfoTooltip(true);
+          resetForm();
+          setTimeout(navigate("/sign-in"), 1000);
+        })
+        .catch((e) => {
+          onInfoTooltip(false, e.message);
+          console.log(e);
+        });
     }
   };
 
-  //Отправляем данные нового пользователя на сервер и  в зависимости какой ответ пришел показываем popup confirmation, делаем редирект на страницу входа
-  const handleSubmit = (evt) => {
-    evt.preventDefault();
-  };
-
   useEffect(() => {
-    setEmail("");
-    setPassword("");
-    setName("");
-  }, []);
+    isValid
+      ? setSubmitClassName("login__submit login__submit_type_register")
+      : setSubmitClassName("login__submit login__submit_type_register login__submit_disable");
+  }, [isValid]);
 
   return (
     <div className="login">
       <Header type="auth">Добро пожаловать!</Header>
-
       <form className="login__form" name="login" onSubmit={handleSubmit} noValidate>
         <h3 className="login__input-name">Имя</h3>
         <input
@@ -51,9 +49,10 @@ export default function Register({ onInfoTooltip }) {
           required
           className="login__input"
           onChange={handleChange}
-          value={name}
+          value={name || ""}
+          pattern="[A-Za-zА-Яа-яЁё -]+$"
         />
-        <span className="login__input-error">{errName}</span>
+        <span className="login__input-error">{errors.name}</span>
         <h3 className="login__input-name">E-mail</h3>
         <input
           type="email"
@@ -65,9 +64,9 @@ export default function Register({ onInfoTooltip }) {
           required
           className="login__input "
           onChange={handleChange}
-          value={email}
+          value={email || ""}
         />
-        <span className="login__input-error">{errEmail}</span>
+        <span className="login__input-error">{errors.email}</span>
         <h3 className="login__input-name">Пароль</h3>
         <input
           type="password"
@@ -79,10 +78,10 @@ export default function Register({ onInfoTooltip }) {
           required
           className="login__input "
           onChange={handleChange}
-          value={password}
+          value={password || ""}
         />
-        <span className="login__input-error">{errPassword}</span>
-        <button type="submit" className="login__submit login__submit_type_register">
+        <span className="login__input-error">{errors.password}</span>
+        <button type="submit" className={submitClassName}>
           Зарегистрироваться
         </button>
         <p className="login__text">
