@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Header from "../Header/Header";
 import { useFormWithValidation } from "../../hooks/useFormWithValidation/useFormWithValidation";
 import { apiAuth } from "../../utils/MainApi";
+import { REG_EMAIL, REG_NAME } from "../../utils/constants";
 
-export default function Register({ onInfoTooltip }) {
-  let navigate = useNavigate();
-  const [values, handleChange, errors, isValid, resetForm] = useFormWithValidation();
+export default function Register({ onLogin, onInfoTooltip }) {
+  const [values, handleChange, errors, isValid] = useFormWithValidation();
   const { name, email, password } = values;
   const [submitClassName, setSubmitClassName] = useState("login__submit login__submit_type_register login__submit_disable");
 
@@ -17,13 +17,13 @@ export default function Register({ onInfoTooltip }) {
       apiAuth
         .register(email, password, name)
         .then(() => {
-          onInfoTooltip(true);
-          resetForm();
-          setTimeout(navigate("/sign-in"), 1000);
+          onLogin(email, password);
         })
-        .catch((e) => {
-          onInfoTooltip(false, e.message);
-          console.log(e);
+        .catch((err) => {
+          err.json().then((err) => {
+            onInfoTooltip(false, err.message);
+            console.log(err);
+          });
         });
     }
   };
@@ -50,7 +50,7 @@ export default function Register({ onInfoTooltip }) {
           className="login__input"
           onChange={handleChange}
           value={name || ""}
-          pattern="[A-Za-zА-Яа-яЁё -]+$"
+          pattern={REG_NAME}
         />
         <span className="login__input-error">{errors.name}</span>
         <h3 className="login__input-name">E-mail</h3>
@@ -65,6 +65,7 @@ export default function Register({ onInfoTooltip }) {
           className="login__input "
           onChange={handleChange}
           value={email || ""}
+          pattern={REG_EMAIL}
         />
         <span className="login__input-error">{errors.email}</span>
         <h3 className="login__input-name">Пароль</h3>

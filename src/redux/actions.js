@@ -5,7 +5,7 @@ import {
   SET_FILTERED_MOVIES,
   SET_SAVED_MOVIES,
   SET_LOADER_DELETE,
-  SET_INFO_TOOLTIP,
+  SET_MOVIES_DATA,
 } from "./types";
 
 export function setCurrentUser(user) {
@@ -29,4 +29,8 @@ export function setFilteredMovies(movies) {
 
 export function setSavedMovies(movies) {
   return { type: SET_SAVED_MOVIES, payload: movies };
+}
+
+export function setMoviesData(movies) {
+  return { type: SET_MOVIES_DATA, payload: movies };
 }

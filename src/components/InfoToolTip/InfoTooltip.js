@@ -1,10 +1,11 @@
 import React from "react";
 import confirm from "../../images/confirm.svg";
 import reject from "../../images/rejected.svg";
+import { MESSAGE_AUTH_CONFIRM, MESSAGE_AUTH_REJECT } from "../../utils/constants";
 
 export default function InfoTooltip({ isConfirm, onClose, isOpen, message }) {
   const popupClassName = isOpen ? "popup popup_opened" : "popup";
-  const messageText = message ? message : isConfirm ? "Вы успешно зарегистрировались!" : "Что-то пошло не так! Попробуйте ещё раз.";
+  const messageText = message ? message : isConfirm ? MESSAGE_AUTH_CONFIRM : MESSAGE_AUTH_REJECT;
   return (
     <div className={popupClassName}>
       <div className="popup__container">

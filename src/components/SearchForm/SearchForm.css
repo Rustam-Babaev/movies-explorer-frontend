@@ -8,6 +8,8 @@
 @import url(./__filter-container/search-form__filter-container.css);
 @import url(./__underline/search-form__underline.css);
 @import url(./__input-error/search-form__input-error.css);
+@import url(./__checkbox/_disable/search-form__checkbox_disable.css);
+@import url(./__submit/_disable/search-form__submit_disable.css);
 .search-form {
     display: flex;
     flex-direction: column;

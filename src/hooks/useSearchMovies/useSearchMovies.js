@@ -5,6 +5,7 @@ export function useSearchMovies() {
 
   const handleSearchMovies = (moviesName = "", isShort = false, moviesData, isSavedMovies = false) => {
     const reg = new RegExp(`${moviesName}`, "i");
+
     if (isSavedMovies && !moviesName) {
       if (isShort) {
         setFoundMovies(moviesData.filter(({ duration }) => duration <= 40));
@@ -15,6 +16,7 @@ export function useSearchMovies() {
     if (!moviesData) {
       return setFoundMovies([]);
     }
+
     const films = moviesData.filter(({ nameRU, nameEN, duration }) => {
       const filmName = nameRU + " " + nameEN;
       if (!isShort) {

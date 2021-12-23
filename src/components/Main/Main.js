@@ -1,5 +1,6 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 import Header from "../Header/Header";
 import Navigation from "../Navigation/Navigation";
 import Promo from "../Main/Promo/Promo";
@@ -8,7 +9,6 @@ import Techs from "./Techs/Techs";
 import AboutME from "./AboutMe/AboutMe";
 import Portfolio from "./Portfolio/Portfolio";
 import Footer from "../Footer/Footer";
-import { useSelector } from "react-redux";
 
 function Main() {
   const isLoggedIn = useSelector((state) => state.login.isLoggedIn);

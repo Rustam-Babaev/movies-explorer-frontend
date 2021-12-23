@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Header from "../Header/Header";
 import { useFormWithValidation } from "../../hooks/useFormWithValidation/useFormWithValidation";
+import { REG_EMAIL } from "../../utils/constants";
 
 export default function Login({ onLogin }) {
   const [values, handleChange, errors, isValid] = useFormWithValidation();
@@ -36,6 +37,7 @@ export default function Login({ onLogin }) {
           className="login__input "
           onChange={handleChange}
           value={email || ""}
+          pattern={REG_EMAIL}
         />
         <span className="login__input-error">{errors.email}</span>
         <h3 className="login__input-name">Пароль</h3>

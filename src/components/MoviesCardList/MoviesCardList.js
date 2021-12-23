@@ -5,9 +5,9 @@ import Preloder from "../Preloader/Preloader";
 import useViewSize from "../../hooks/useViewSize/useViewSize";
 
 function MoviesCardList({ cards, onCardLike, onCardDelete, onCardClick, isSavedCards }) {
-  const isLoading = useSelector((state) => state.loader.isLoading);
-  let PAGE_SIZE = 0;
+  let pageSize = 0;
   let more = 0;
+  const isLoading = useSelector((state) => state.loader.isLoading);
   const [viewSize] = useViewSize(window.innerWidth);
   const [index, setIndex] = useState(0);
   const [visibleData, setVisibleData] = useState([]);
@@ -15,25 +15,25 @@ function MoviesCardList({ cards, onCardLike, onCardDelete, onCardClick, isSavedC
   const handleMoreClick = () => setIndex(index + more);
 
   if (viewSize > 768) {
-    PAGE_SIZE = 12;
+    pageSize = 12;
     more = 4;
   } else if (viewSize < 768 && viewSize > 320) {
-    PAGE_SIZE = 8;
+    pageSize = 8;
     more = 2;
   } else {
-    PAGE_SIZE = 5;
+    pageSize = 5;
     more = 2;
   }
 
   useEffect(() => {
-    const numberOfItems = PAGE_SIZE + index;
+    const numberOfItems = pageSize + index;
     const newArray = [];
     for (let i = 0; i < cards.length; i++) {
       if (i < numberOfItems) newArray.push(cards[i]);
     }
     setVisibleData(newArray);
     setIsShowMore(newArray.length < cards.length ? true : false);
-  }, [PAGE_SIZE, cards, index]);
+  }, [pageSize, cards, index]);
 
   return (
     <div className="movies-card-list">

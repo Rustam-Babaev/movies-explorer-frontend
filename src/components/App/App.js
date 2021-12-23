@@ -1,6 +1,7 @@
 import "./App.css";
 import React, { useEffect, useState } from "react";
-import { Route, Routes, useNavigate, IndexRoute } from "react-router-dom";
+import { Route, Routes, useNavigate, Navigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import SavedMovies from "../SavedMovies/SavedMovies";
 import PageNotFound from "../PageNotFound/PageNotFound";
@@ -11,9 +12,10 @@ import Register from "../Register/Register";
 import Profile from "../Profile/Profile";
 import InfoTooltip from "../InfoTooltip/InfoTooltip";
 import { apiAuth } from "../../utils/MainApi";
-import { useDispatch, useSelector } from "react-redux";
-import { setCurrentUser, loggedIn } from "../../redux/actions";
-
+import { apiSavedMovies } from "../../utils/MainApi";
+import moviesApi from "../../utils/MoviesApi";
+import { setCurrentUser, loggedIn, setLoader, setSavedMovies, setMoviesData } from "../../redux/actions";
+import { ERR_DEFAULT_MESSAGE } from "../../utils/constants";
 //Хотя проект не большой и не глубокий, но в нем использовал Redux,
 //чтобы научиться им пользоваться и показать будующим работадателям, что знаком с Redux и могу его использовать
 
@@ -58,13 +60,31 @@ function App() {
         .then((res) => {
           if (res) {
             dispatch(loggedIn(true));
+            localStorage.setItem("isLoggedIn", "true");
             dispatch(setCurrentUser(res));
           }
         })
         .catch((err) => err.json().then((err) => console.log(err)));
     };
     tokenCheck();
-  }, [dispatch, isLoggedIn, navigate]);
+
+    const getMoviesData = () => {
+      dispatch(setLoader(true));
+      Promise.all([moviesApi.getMovies(), apiSavedMovies.getSavedMovies()])
+        .then(([moviesDB, savedMovies]) => {
+          localStorage.setItem("moviesData", JSON.stringify(moviesDB));
+          localStorage.setItem("savedMovies", JSON.stringify(savedMovies.data));
+          dispatch(setSavedMovies(savedMovies.data));
+          dispatch(setMoviesData(moviesDB));
+        })
+        .catch((err) => {
+          handleInfoTooltip(true, ERR_DEFAULT_MESSAGE);
+          console.log(err);
+        })
+        .finally(() => dispatch(setLoader(false)));
+    };
+    getMoviesData();
+  }, [dispatch]);
 
   return (
     <>
@@ -93,8 +113,11 @@ function App() {
             </ProtectedRoute>
           }
         />
-        <Route path="/sign-up" element={<Register onInfoTooltip={handleInfoTooltip} />} />
-        <Route path="/sign-in" element={<Login onLogin={handleLogin} />} />
+        <Route
+          path="/sign-up"
+          element={isLoggedIn ? <Navigate to="/movies" /> : <Register onInfoTooltip={handleInfoTooltip} onLogin={handleLogin} />}
+        />
+        <Route path="/sign-in" element={isLoggedIn ? <Navigate to="/movies" /> : <Login onLogin={handleLogin} />} />
         <Route path="/" element={<Main />} />
         <Route path="*" element={<PageNotFound />} />
       </Routes>

@@ -5,7 +5,6 @@ import Footer from "../Footer/Footer";
 import Navigation from "../Navigation/Navigation";
 import SearchForm from "../SearchForm/SearchForm";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
-import moviesApi from "../../utils/MoviesApi";
 import { apiSavedMovies } from "../../utils/MainApi";
 import { useSearchMovies } from "../../hooks/useSearchMovies/useSearchMovies";
 import { setLoader, setFilteredMovies, setSavedMovies } from "../../redux/actions";
@@ -14,30 +13,19 @@ function Movies({ onInfoTooltip }) {
   const dispatch = useDispatch();
   const filteredMovies = useSelector((state) => state.movies.filteredMovies);
   const savedMovies = useSelector((state) => state.movies.savedMovies);
+  const moviesData = useSelector((state) => state.movies.moviesData);
   const isLoading = useSelector((state) => state.loader.isLoading);
   const [isShort, setIsShort] = useState(localStorage.getItem("isShort") === "true" ? true : false);
   const [moviesName, setMoviesName] = useState(localStorage.getItem("moviesName"));
   const [foundMovies, handleSearchMovies] = useSearchMovies();
 
-  const handleSearchMovie = (moviesName) => {
+  const handleSearchMovie = (word) => {
+    const searchWord = word ? word.trim() : word;
     dispatch(setLoader(true));
-    setMoviesName(moviesName);
-    localStorage.setItem("moviesName", moviesName);
-    Promise.all([moviesApi.getMovies(), apiSavedMovies.getSavedMovies()])
-      .then(([moviesDB, savedMovies]) => {
-        localStorage.setItem("moviesData", JSON.stringify(moviesDB));
-        localStorage.setItem("savedMovies", JSON.stringify(savedMovies.data));
-        dispatch(setSavedMovies(savedMovies.data));
-        handleSearchMovies(moviesName, isShort, moviesDB);
-      })
-      .catch((err) => {
-        onInfoTooltip(
-          true,
-          "Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз"
-        );
-        console.log(err);
-      })
-      .finally(() => dispatch(setLoader(false)));
+    setMoviesName(searchWord);
+    localStorage.setItem("moviesName", searchWord);
+    handleSearchMovies(searchWord, isShort, moviesData);
+    dispatch(setLoader(false));
   };
 
   const handleMovieLike = (movie) => {
@@ -50,7 +38,10 @@ function Movies({ onInfoTooltip }) {
           newSavedMovies = savedMovies.filter((film) => film._id !== savedMovie._id);
           dispatch(setSavedMovies(newSavedMovies));
         })
-        .catch((err) => console.log(err));
+        .catch((err) => {
+          onInfoTooltip(false, err.message);
+          console.log(err);
+        });
     } else {
       apiSavedMovies
         .addMoviesRequest(movie)
@@ -58,14 +49,17 @@ function Movies({ onInfoTooltip }) {
           newSavedMovies = [...savedMovies, data];
           dispatch(setSavedMovies(newSavedMovies));
         })
-        .catch((err) => console.log(err));
+        .catch((err) => {
+          onInfoTooltip(false, err.message);
+          console.log(err);
+        });
     }
   };
 
   const handleChangeShort = (isShort) => {
     setIsShort(isShort);
     localStorage.setItem("isShort", isShort);
-    handleSearchMovies(moviesName, isShort, JSON.parse(localStorage.getItem("moviesData")));
+    handleSearchMovies(moviesName, isShort, moviesData);
   };
 
   useEffect(() => {
@@ -73,7 +67,7 @@ function Movies({ onInfoTooltip }) {
   }, [dispatch, foundMovies]);
 
   useEffect(() => {
-    handleSearchMovies(moviesName, isShort, JSON.parse(localStorage.getItem("moviesData")));
+    handleSearchMovies(moviesName, isShort, moviesData);
   }, []);
 
   return (

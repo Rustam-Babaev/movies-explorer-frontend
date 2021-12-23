@@ -8,6 +8,7 @@ import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import { apiSavedMovies } from "../../utils/MainApi";
 import { useSearchMovies } from "../../hooks/useSearchMovies/useSearchMovies";
 import { setLoader, setFilteredMovies, setSavedMovies, setLoaderDelete } from "../../redux/actions";
+import { MESSAGE_NOT_FOUND } from "../../utils/constants";
 
 function SavedMovies() {
   const dispatch = useDispatch();
@@ -69,7 +70,7 @@ function SavedMovies() {
         <main>
           <SearchForm onSearchMovies={handleSearchMovie} onChangeShort={handleChangeShort}></SearchForm>
           {filteredMovies.length === 0 ? (
-            moviesName && !isLoading && <p className="movies__search-result">Ничего не найдено</p>
+            moviesName && !isLoading && <p className="movies__search-result">{MESSAGE_NOT_FOUND}</p>
           ) : (
             <MoviesCardList cards={filteredMovies} isSavedCards={true} onCardDelete={handleMovieDelete}></MoviesCardList>
           )}

@@ -1,18 +1,27 @@
-import React, { useCallback } from "react";
+import { useState, useCallback } from "react";
+import { useSelector } from "react-redux";
+import { MESSAGE_SEARCH_WORD, MESSAGE_FORMAT_SYMBOLS } from "../../utils/constants";
 
 //хук управления формой и валидации формы
 export function useFormWithValidation() {
-  const [values, setValues] = React.useState({});
-  const [errors, setErrors] = React.useState({});
-  const [isValid, setIsValid] = React.useState(false);
+  const currentUser = useSelector((state) => state.user.currentUser);
+  const [values, setValues] = useState({});
+  const [errors, setErrors] = useState({});
+  const [isValid, setIsValid] = useState(false);
 
-  const handleChange = (event) => {
+  const handleChange = (event, isProfile) => {
+    if (isProfile) {
+      return setValues({ name: currentUser.name, email: currentUser.email });
+    }
     const target = event.target;
     const name = target.name;
     const value = target.value;
     let validationMessage = target.validationMessage;
     if (target.validity.patternMismatch && name === "name") {
-      validationMessage = "Допускается использовать только латиницу, кириллицу, пробел или дефис";
+      validationMessage = MESSAGE_FORMAT_SYMBOLS;
+    }
+    if ((target.validity.tooShort || target.validity.valueMissing) && name === "movie") {
+      validationMessage = MESSAGE_SEARCH_WORD;
     }
     setValues({ ...values, [name]: value });
     setErrors({ ...errors, [name]: validationMessage });

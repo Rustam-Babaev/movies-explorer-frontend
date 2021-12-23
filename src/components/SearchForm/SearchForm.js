@@ -1,23 +1,20 @@
-import React, { useState } from "react";
+import React from "react";
+import { useSelector } from "react-redux";
+import { useFormWithValidation } from "../../hooks/useFormWithValidation/useFormWithValidation";
 
 function SearchForm({ onSearchMovies, onChangeShort, moviesName }) {
+  const isLoading = useSelector((state) => state.loader.isLoading);
   const searchWord = moviesName ? moviesName : "Фильм";
-  const [movie, setMovie] = useState("");
-  const [errmovie, setErrMovie] = useState("");
+  const [values, handleChange, errors, isValid] = useFormWithValidation();
+  const { movie } = values;
+  const checkboxClassName = isLoading ? "search-form__checkbox search-form__checkbox_disable" : "search-form__checkbox";
+  const submitClassName = isLoading ? "search-form__submit search-form__submit_disable" : "search-form__submit";
+
+  //Я заблокировал нажатие на сабмит и фильтр при загрузке данных
+
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    if (evt.target.movieInput.validity.valid) {
-      onSearchMovies(movie);
-    } else if (evt.target.movieInput.validity.tooShort || evt.target.movieInput.validity.valueMissing) {
-      setErrMovie("Нужно ввести ключевое слово");
-    } else {
-      setErrMovie(evt.validationMessage);
-    }
-  };
-
-  const handleChange = (evt) => {
-    const { value } = evt.target;
-    setMovie(value);
+    isValid && onSearchMovies(movie);
   };
 
   const handleChangeCheckbox = (evt) => {
@@ -32,24 +29,23 @@ function SearchForm({ onSearchMovies, onChangeShort, moviesName }) {
           name="movie"
           id="movieInput"
           placeholder={searchWord}
-          minLength="2"
-          maxLength="50"
           required
           className="search-form__input"
           onChange={handleChange}
         />
-        <input type="submit" value="Поиск" className="search-form__submit" />
+        <input type="submit" value="Поиск" className={submitClassName} disabled={isLoading} />
       </div>
-      <span className="search-form__input-error">{errmovie}</span>
+      <span className="search-form__input-error">{errors.movie}</span>
       <div className="search-form__filter-container">
         <div className="search-form__checkbox-container">
           <input
             type="checkbox"
             id="filterShortMovie"
             name="filterShortMovie"
-            className="search-form__checkbox"
+            className={checkboxClassName}
             onChange={handleChangeCheckbox}
             defaultChecked={localStorage.getItem("isShort") === "true" ? true : false}
+            disabled={isLoading}
           />
           <label htmlFor="filterShortMovie" className="search-form__checkbox-flag"></label>
         </div>
