@@ -6,10 +6,11 @@ import Header from "../Header/Header";
 import Navigation from "../Navigation/Navigation";
 import { apiAuth } from "../../utils/MainApi";
 import { useFormWithValidation } from "../../hooks/useFormWithValidation/useFormWithValidation";
-import { REG_EMAIL, REG_NAME, MESSAGE_CONFIRM_SAVE } from "../../utils/constants";
+import { REG_EMAIL, REG_NAME, MESSAGE_CONFIRM_SAVE, PROFILE__HELLO, NAME, EDIT, SIGN__OUT } from "../../utils/constants";
 
 export default function Profile({ onInfoTooltip }) {
   const dispatch = useDispatch();
+  const language = useSelector((state) => state.language.language);
   const currentUser = useSelector((state) => state.user.currentUser);
   const [values, handleChange, errors, isValid] = useFormWithValidation();
   const { name, email } = values;
@@ -34,7 +35,7 @@ export default function Profile({ onInfoTooltip }) {
         .editProfileRequest(name, email)
         .then((res) => {
           dispatch(setCurrentUser(res));
-          onInfoTooltip(true, MESSAGE_CONFIRM_SAVE);
+          onInfoTooltip(true, MESSAGE_CONFIRM_SAVE[language]);
         })
         .catch((err) => {
           err.json().then((err) => {
@@ -63,9 +64,11 @@ export default function Profile({ onInfoTooltip }) {
       </Header>
       <div className="profile">
         <form className="profile__form" name="profile" onSubmit={handleSubmit} noValidate>
-          <h1 className="profile__title">Привет, {currentUser.name}!</h1>
+          <h1 className="profile__title">
+            {PROFILE__HELLO[language]}, {currentUser.name}!
+          </h1>
           <div className="profile__input-container">
-            <h2 className="profile__input-name">Имя</h2>
+            <h2 className="profile__input-name">{NAME[language]}</h2>
             <input
               type="text"
               name="name"
@@ -100,11 +103,11 @@ export default function Profile({ onInfoTooltip }) {
           </div>
           <span className="profile__input-error">{errors.email}</span>
           <button type="submit" className={submitClassName}>
-            Редактировать
+            {EDIT[language]}
           </button>
         </form>
         <button type="button" className="profile__signout" onClick={handleSignOut}>
-          Выйти из аккаунта
+          {SIGN__OUT[language]}
         </button>
       </div>
     </>

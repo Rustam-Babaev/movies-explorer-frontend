@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 import Header from "../Header/Header";
 import { useFormWithValidation } from "../../hooks/useFormWithValidation/useFormWithValidation";
-import { REG_EMAIL } from "../../utils/constants";
+import { REG_EMAIL, LOGIN__WELCOME__MESSAGE, PASSWORD, LOGIN, LOGIN__QUESTION, REGISTRATION } from "../../utils/constants";
 
 export default function Login({ onLogin }) {
+  const language = useSelector((state) => state.language.language);
   const [values, handleChange, errors, isValid] = useFormWithValidation();
   const { email, password } = values;
   const [submitClassName, setSubmitClassName] = useState("login__submit login__submit_disable");
@@ -22,7 +24,7 @@ export default function Login({ onLogin }) {
 
   return (
     <div className="login">
-      <Header type="auth">Рады видеть!</Header>
+      <Header type="auth">{LOGIN__WELCOME__MESSAGE[language]}</Header>
 
       <form className="login__form" name="login" onSubmit={handleSubmit} noValidate>
         <h3 className="login__input-name">E-mail</h3>
@@ -40,7 +42,7 @@ export default function Login({ onLogin }) {
           pattern={REG_EMAIL}
         />
         <span className="login__input-error">{errors.email}</span>
-        <h3 className="login__input-name">Пароль</h3>
+        <h3 className="login__input-name">{PASSWORD[language]}</h3>
         <input
           type="password"
           name="password"
@@ -55,12 +57,12 @@ export default function Login({ onLogin }) {
         />
         <span className="login__input-error">{errors.password}</span>
         <button type="submit" className={submitClassName}>
-          Войти
+          {LOGIN[language]}
         </button>
         <p className="login__text">
-          Ещё не зарегистрированы?
+          {LOGIN__QUESTION[language]}
           <Link className="login__link" to="/sign-up">
-            Регистрация
+            {REGISTRATION[language]}
           </Link>
         </p>
       </form>

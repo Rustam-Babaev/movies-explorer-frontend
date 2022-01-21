@@ -1,4 +1,4 @@
-.header__link {
+.header__language-button {
     margin: 0 0 0 20px;
     padding: 0;
     font-size: 14px;
@@ -6,6 +6,7 @@
     color: white;
     text-decoration: none;
     border: 0px;
+    background-color: transparent;
     cursor: pointer;
     transition: 0.3s;
 }

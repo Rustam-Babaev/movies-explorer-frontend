@@ -6,6 +6,7 @@ import {
   SET_SAVED_MOVIES,
   SET_LOADER_DELETE,
   SET_MOVIES_DATA,
+  SET_LANGUAGE,
 } from "./types";
 
 export function setCurrentUser(user) {
@@ -33,4 +34,8 @@ export function setSavedMovies(movies) {
 
 export function setMoviesData(movies) {
   return { type: SET_MOVIES_DATA, payload: movies };
+}
+
+export function setLanguage(language) {
+  return { type: SET_LANGUAGE, payload: language };
 }

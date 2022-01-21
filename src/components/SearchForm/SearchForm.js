@@ -1,16 +1,16 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { useFormWithValidation } from "../../hooks/useFormWithValidation/useFormWithValidation";
+import { MOVIES, SHORT__MOVIE, SEARCH } from "../../utils/constants";
 
 function SearchForm({ onSearchMovies, onChangeShort, moviesName }) {
   const isLoading = useSelector((state) => state.loader.isLoading);
-  const searchWord = moviesName ? moviesName : "Фильм";
+  const language = useSelector((state) => state.language.language);
+  const searchWord = moviesName ? moviesName : MOVIES[language];
   const [values, handleChange, errors, isValid] = useFormWithValidation();
   const { movie } = values;
   const checkboxClassName = isLoading ? "search-form__checkbox search-form__checkbox_disable" : "search-form__checkbox";
   const submitClassName = isLoading ? "search-form__submit search-form__submit_disable" : "search-form__submit";
-
-  //Я заблокировал нажатие на сабмит и фильтр при загрузке данных
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
@@ -33,7 +33,7 @@ function SearchForm({ onSearchMovies, onChangeShort, moviesName }) {
           className="search-form__input"
           onChange={handleChange}
         />
-        <input type="submit" value="Поиск" className={submitClassName} disabled={isLoading} />
+        <input type="submit" value={SEARCH[language]} className={submitClassName} disabled={isLoading} />
       </div>
       <span className="search-form__input-error">{errors.movie}</span>
       <div className="search-form__filter-container">
@@ -49,7 +49,7 @@ function SearchForm({ onSearchMovies, onChangeShort, moviesName }) {
           />
           <label htmlFor="filterShortMovie" className="search-form__checkbox-flag"></label>
         </div>
-        <p className="search-form__checkbox-name">Короткометражки</p>
+        <p className="search-form__checkbox-name">{SHORT__MOVIE[language]}</p>
       </div>
       <hr className="search-form__underline" />
     </form>

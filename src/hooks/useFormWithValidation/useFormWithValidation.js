@@ -4,6 +4,7 @@ import { MESSAGE_SEARCH_WORD, MESSAGE_FORMAT_SYMBOLS } from "../../utils/constan
 
 //хук управления формой и валидации формы
 export function useFormWithValidation() {
+  const language = useSelector((state) => state.language.language);
   const currentUser = useSelector((state) => state.user.currentUser);
   const [values, setValues] = useState({});
   const [errors, setErrors] = useState({});
@@ -18,10 +19,10 @@ export function useFormWithValidation() {
     const value = target.value;
     let validationMessage = target.validationMessage;
     if (target.validity.patternMismatch && name === "name") {
-      validationMessage = MESSAGE_FORMAT_SYMBOLS;
+      validationMessage = MESSAGE_FORMAT_SYMBOLS[language];
     }
     if ((target.validity.tooShort || target.validity.valueMissing) && name === "movie") {
-      validationMessage = MESSAGE_SEARCH_WORD;
+      validationMessage = MESSAGE_SEARCH_WORD[language];
     }
     setValues({ ...values, [name]: value });
     setErrors({ ...errors, [name]: validationMessage });

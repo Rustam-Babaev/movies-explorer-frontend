@@ -12,6 +12,7 @@ import { MESSAGE_NOT_FOUND } from "../../utils/constants";
 
 function SavedMovies() {
   const dispatch = useDispatch();
+  const language = useSelector((state) => state.language.language);
   const [foundMovies, handleSearchMovies] = useSearchMovies();
   const [isShort, setIsShort] = useState(false);
   const [moviesName, setMoviesName] = useState("");
@@ -70,7 +71,7 @@ function SavedMovies() {
         <main>
           <SearchForm onSearchMovies={handleSearchMovie} onChangeShort={handleChangeShort}></SearchForm>
           {filteredMovies.length === 0 ? (
-            moviesName && !isLoading && <p className="movies__search-result">{MESSAGE_NOT_FOUND}</p>
+            moviesName && !isLoading && <p className="movies__search-result">{MESSAGE_NOT_FOUND[language]}</p>
           ) : (
             <MoviesCardList cards={filteredMovies} isSavedCards={true} onCardDelete={handleMovieDelete}></MoviesCardList>
           )}

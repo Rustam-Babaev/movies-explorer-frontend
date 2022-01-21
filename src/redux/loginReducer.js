@@ -1,9 +1,6 @@
 import { SET_LOGIN } from "./types";
-
 const initialData = {
-  isLoggedIn: localStorage.getItem("isLoggedIn")
-    ? localStorage.getItem("isLoggedIn") !== "false" && localStorage.getItem("isLoggedIn")
-    : false,
+  isLoggedIn: localStorage.getItem("isLoggedIn") ? localStorage.getItem("isLoggedIn") === "true" && true : false,
 };
 
 export const loginReducer = (state = initialData, action) => {

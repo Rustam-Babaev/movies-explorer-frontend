@@ -9,9 +9,11 @@ import Techs from "./Techs/Techs";
 import AboutME from "./AboutMe/AboutMe";
 import Portfolio from "./Portfolio/Portfolio";
 import Footer from "../Footer/Footer";
+import { REGISTRATION, LOGIN } from "../../utils/constants";
 
 function Main() {
   const isLoggedIn = useSelector((state) => state.login.isLoggedIn);
+  const language = useSelector((state) => state.language.language);
   const navigate = useNavigate();
   return (
     <>
@@ -22,10 +24,10 @@ function Main() {
       ) : (
         <Header type="main">
           <Link className="main_header-link-login" to="/sign-up">
-            Регистрация
+            {REGISTRATION[language]}
           </Link>
           <button className="main__header-button" onClick={() => navigate("/sign-in")}>
-            Войти
+            {LOGIN[language]}
           </button>
         </Header>
       )}

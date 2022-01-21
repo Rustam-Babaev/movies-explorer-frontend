@@ -3,8 +3,10 @@ import { useSelector } from "react-redux";
 import MoviesCard from "../MoviesCard/MoviesCard";
 import Preloder from "../Preloader/Preloader";
 import useViewSize from "../../hooks/useViewSize/useViewSize";
+import { MORE } from "../../utils/constants";
 
 function MoviesCardList({ cards, onCardLike, onCardDelete, onCardClick, isSavedCards }) {
+  const language = useSelector((state) => state.language.language);
   let pageSize = 0;
   let more = 0;
   const isLoading = useSelector((state) => state.loader.isLoading);
@@ -57,7 +59,7 @@ function MoviesCardList({ cards, onCardLike, onCardDelete, onCardClick, isSavedC
           </div>
           {isShowMore && (
             <button aria-label="Показать еще" className="movie-card-list__more" onClick={handleMoreClick}>
-              Еще
+              {MORE[language]}
             </button>
           )}
         </>

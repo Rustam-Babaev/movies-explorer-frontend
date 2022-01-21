@@ -16,13 +16,12 @@ import { apiSavedMovies } from "../../utils/MainApi";
 import moviesApi from "../../utils/MoviesApi";
 import { setCurrentUser, loggedIn, setLoader, setSavedMovies, setMoviesData } from "../../redux/actions";
 import { ERR_DEFAULT_MESSAGE } from "../../utils/constants";
-//Хотя проект не большой и не глубокий, но в нем использовал Redux,
-//чтобы научиться им пользоваться и показать будующим работадателям, что знаком с Redux и могу его использовать
 
 function App() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const isLoggedIn = useSelector((state) => state.login.isLoggedIn);
+  const language = useSelector((state) => state.language.language);
   const [isConfirmInfoTooltip, setIsConfirmInfoTooltip] = useState(false);
   const [isOpenInfoTooltip, setIsOpenInfoTooltip] = useState(false);
   const [messageInfoTooltip, setMessageInfoTooltip] = useState("");
@@ -66,7 +65,6 @@ function App() {
         })
         .catch((err) => err.json().then((err) => console.log(err)));
     };
-    tokenCheck();
 
     const getMoviesData = () => {
       dispatch(setLoader(true));
@@ -78,13 +76,15 @@ function App() {
           dispatch(setMoviesData(moviesDB));
         })
         .catch((err) => {
-          handleInfoTooltip(true, ERR_DEFAULT_MESSAGE);
+          handleInfoTooltip(false, ERR_DEFAULT_MESSAGE[language]);
           console.log(err);
         })
         .finally(() => dispatch(setLoader(false)));
     };
-    getMoviesData();
-  }, [dispatch]);
+
+    tokenCheck();
+    isLoggedIn && getMoviesData();
+  }, [dispatch, isLoggedIn, language]);
 
   return (
     <>

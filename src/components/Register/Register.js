@@ -1,11 +1,22 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 import Header from "../Header/Header";
 import { useFormWithValidation } from "../../hooks/useFormWithValidation/useFormWithValidation";
 import { apiAuth } from "../../utils/MainApi";
-import { REG_EMAIL, REG_NAME } from "../../utils/constants";
+import {
+  REG_EMAIL,
+  REG_NAME,
+  REGISTRATION__WELCOME__MESSAGE,
+  NAME,
+  PASSWORD,
+  REGISTRATION__BUTTON,
+  REGISTRATION__QUESTION,
+  LOGIN,
+} from "../../utils/constants";
 
 export default function Register({ onLogin, onInfoTooltip }) {
+  const language = useSelector((state) => state.language.language);
   const [values, handleChange, errors, isValid] = useFormWithValidation();
   const { name, email, password } = values;
   const [submitClassName, setSubmitClassName] = useState("login__submit login__submit_type_register login__submit_disable");
@@ -36,9 +47,9 @@ export default function Register({ onLogin, onInfoTooltip }) {
 
   return (
     <div className="login">
-      <Header type="auth">Добро пожаловать!</Header>
+      <Header type="auth">{REGISTRATION__WELCOME__MESSAGE[language]}</Header>
       <form className="login__form" name="login" onSubmit={handleSubmit} noValidate>
-        <h3 className="login__input-name">Имя</h3>
+        <h3 className="login__input-name">{NAME[language]}</h3>
         <input
           type="text"
           name="name"
@@ -68,7 +79,7 @@ export default function Register({ onLogin, onInfoTooltip }) {
           pattern={REG_EMAIL}
         />
         <span className="login__input-error">{errors.email}</span>
-        <h3 className="login__input-name">Пароль</h3>
+        <h3 className="login__input-name">{PASSWORD[language]}</h3>
         <input
           type="password"
           name="password"
@@ -83,12 +94,12 @@ export default function Register({ onLogin, onInfoTooltip }) {
         />
         <span className="login__input-error">{errors.password}</span>
         <button type="submit" className={submitClassName}>
-          Зарегистрироваться
+          {REGISTRATION__BUTTON[language]}
         </button>
         <p className="login__text">
-          Уже зарегистрированы?
+          {REGISTRATION__QUESTION[language]}
           <Link className="login__link" to="/sign-in">
-            Войти
+            {LOGIN[language]}
           </Link>
         </p>
       </form>

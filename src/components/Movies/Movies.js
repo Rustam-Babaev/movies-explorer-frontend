@@ -8,6 +8,7 @@ import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import { apiSavedMovies } from "../../utils/MainApi";
 import { useSearchMovies } from "../../hooks/useSearchMovies/useSearchMovies";
 import { setLoader, setFilteredMovies, setSavedMovies } from "../../redux/actions";
+import { NOTHING__FOUND } from "../../utils/constants";
 
 function Movies({ onInfoTooltip }) {
   const dispatch = useDispatch();
@@ -15,6 +16,7 @@ function Movies({ onInfoTooltip }) {
   const savedMovies = useSelector((state) => state.movies.savedMovies);
   const moviesData = useSelector((state) => state.movies.moviesData);
   const isLoading = useSelector((state) => state.loader.isLoading);
+  const language = useSelector((state) => state.language.language);
   const [isShort, setIsShort] = useState(localStorage.getItem("isShort") === "true" ? true : false);
   const [moviesName, setMoviesName] = useState(localStorage.getItem("moviesName"));
   const [foundMovies, handleSearchMovies] = useSearchMovies();
@@ -59,7 +61,9 @@ function Movies({ onInfoTooltip }) {
   const handleChangeShort = (isShort) => {
     setIsShort(isShort);
     localStorage.setItem("isShort", isShort);
-    handleSearchMovies(moviesName, isShort, moviesData);
+    if (moviesName) {
+      handleSearchMovies(moviesName, isShort, moviesData);
+    }
   };
 
   useEffect(() => {
@@ -67,7 +71,9 @@ function Movies({ onInfoTooltip }) {
   }, [dispatch, foundMovies]);
 
   useEffect(() => {
-    handleSearchMovies(moviesName, isShort, moviesData);
+    if (moviesName) {
+      handleSearchMovies(moviesName, isShort, moviesData);
+    }
   }, []);
 
   return (
@@ -79,7 +85,7 @@ function Movies({ onInfoTooltip }) {
         <main>
           <SearchForm onSearchMovies={handleSearchMovie} onChangeShort={handleChangeShort} moviesName={moviesName}></SearchForm>
           {filteredMovies.length === 0 ? (
-            moviesName && !isLoading && <p className="movies__search-result">Ничего не найдено</p>
+            moviesName && !isLoading && <p className="movies__search-result">{NOTHING__FOUND[language]}</p>
           ) : (
             <MoviesCardList cards={filteredMovies} onCardLike={handleMovieLike}></MoviesCardList>
           )}
