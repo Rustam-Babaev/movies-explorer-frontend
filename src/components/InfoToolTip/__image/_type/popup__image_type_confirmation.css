@@ -1,0 +1,9 @@
+.popup__image_type_confirmation {
+    margin: 60px auto 32px
+}
+
+@media screen and (max-width: 995px) {
+    .popup__image_type_confirmation {
+        margin: 50px auto 40px
+    }
+}

@@ -1,0 +1,28 @@
+.spinner {
+    position: relative;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: conic-gradient(#3DDC84, transparent);
+    animation: rotating 1s linear infinite;
+}
+
+.spinner::before {
+    content: '';
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    top: 5px;
+    left: 5px;
+    border-radius: 50%;
+    background: #202020;
+}
+
+@keyframes rotating {
+    from {
+        transform: rotate(360deg);
+    }
+    to {
+        transform: rotate(0deg);
+    }
+}

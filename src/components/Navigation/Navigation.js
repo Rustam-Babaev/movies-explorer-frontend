@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { HOME, MOVIES, MY__MOVIES, ACCOUNT } from "../../utils/constants";
 
 function Navigation() {
+  const language = useSelector((state) => state.language.language);
   const handlerActiveLink = ({ isActive }) => {
     if (isActive) {
       return "navigation__link navigation__link_is-active";
@@ -25,13 +28,13 @@ function Navigation() {
             }}
             to="/"
           >
-            Главная
+            {HOME[language]}
           </NavLink>
           <NavLink className={handlerActiveLink} to="/movies">
-            Фильмы
+            {MOVIES[language]}
           </NavLink>
           <NavLink className={handlerActiveLink} to="/saved-movies">
-            Сохранённые фильмы
+            {MY__MOVIES[language]}
           </NavLink>
           <div className="navigation__accaunt-container">
             <NavLink
@@ -44,7 +47,7 @@ function Navigation() {
               }}
               to="/profile"
             >
-              Аккаунт
+              {ACCOUNT[language]}
             </NavLink>
             <div className="navigation__accaunt-icon"></div>
           </div>

@@ -1,3 +1,5 @@
+@import url(./__header-button/main__header-button.css);
+@import url(./__header-link-login/main_header-link-login.css);
 @import url(./Promo/Promo.css);
 @import url(./AboutProject/AboutProject.css);
 @import url(./Techs/Techs.css);

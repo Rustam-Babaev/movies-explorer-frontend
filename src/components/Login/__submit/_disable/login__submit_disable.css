@@ -1,8 +1,7 @@
 .login__submit_disable {
-    border: 1px solid rgb(0, 0, 0, 0.2);
-    color: #c4c4c4;
-    background-color: white;
+    background-color: hsl(217, 89%, 61%, 0.3);
     cursor: auto;
+    opacity: 1;
 }
 
 .login__submit_disable:hover {

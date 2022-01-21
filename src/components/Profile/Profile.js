@@ -1,41 +1,62 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { loggedIn, setCurrentUser } from "../../redux/actions";
 import Header from "../Header/Header";
 import Navigation from "../Navigation/Navigation";
+import { apiAuth } from "../../utils/MainApi";
+import { useFormWithValidation } from "../../hooks/useFormWithValidation/useFormWithValidation";
+import { REG_EMAIL, REG_NAME, MESSAGE_CONFIRM_SAVE, PROFILE__HELLO, NAME, EDIT, SIGN__OUT } from "../../utils/constants";
 
-export default function Register({ onInfoTooltip, user = "Виталий" }) {
-  const [email, setEmail] = useState("");
-  const [name, setName] = useState("");
-  const [errEmail, setErrEmail] = useState("");
-  const [errName, setErrName] = useState("");
+export default function Profile({ onInfoTooltip }) {
+  const dispatch = useDispatch();
+  const language = useSelector((state) => state.language.language);
+  const currentUser = useSelector((state) => state.user.currentUser);
+  const [values, handleChange, errors, isValid] = useFormWithValidation();
+  const { name, email } = values;
+  const [submitClassName, setSubmitClassName] = useState("profile__submit_dissable");
   let navigate = useNavigate();
 
-  const handleChange = (evt) => {
-    const { name, value } = evt.target;
-    if (name === "email") {
-      setEmail(value);
-      setErrEmail(evt.target.validationMessage);
-    } else {
-      setName(value);
-      setErrName(evt.target.validationMessage);
+  const handleSignOut = (evt) => {
+    apiAuth
+      .signout()
+      .then(() => {
+        dispatch(loggedIn(false));
+        localStorage.clear();
+        navigate("/");
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const handleSubmit = (evt) => {
+    evt.preventDefault();
+    if (isValid && !(currentUser.name === name && currentUser.email === email)) {
+      apiAuth
+        .editProfileRequest(name, email)
+        .then((res) => {
+          dispatch(setCurrentUser(res));
+          onInfoTooltip(true, MESSAGE_CONFIRM_SAVE[language]);
+        })
+        .catch((err) => {
+          err.json().then((err) => {
+            onInfoTooltip(false, err.message);
+            console.log(err);
+          });
+        });
     }
   };
 
-  const handleSignOut = (evt) => {
-    //код для удаления токена из кукис
-    navigate("/");
-  };
-
-  //Отправляем данные нового пользователя на сервер и  в зависимости какой ответ пришел показываем popup confirmation, делаем редирект на страницу входа
-  const handleSubmit = (evt) => {
-    evt.preventDefault();
-  };
+  useEffect(() => {
+    if (isValid && !(currentUser.name === name && currentUser.email === email)) {
+      setSubmitClassName("profile__submit");
+    } else {
+      setSubmitClassName("profile__submit profile__submit_dissable");
+    }
+  }, [currentUser.email, currentUser.name, email, isValid, name]);
 
   useEffect(() => {
-    setEmail("");
-    setName("");
-  }, []);
-
+    handleChange({}, true);
+  }, [currentUser]);
   return (
     <>
       <Header>
@@ -43,9 +64,11 @@ export default function Register({ onInfoTooltip, user = "Виталий" }) {
       </Header>
       <div className="profile">
         <form className="profile__form" name="profile" onSubmit={handleSubmit} noValidate>
-          <h1 className="profile__title">Привет, {user}!</h1>
+          <h1 className="profile__title">
+            {PROFILE__HELLO[language]}, {currentUser.name}!
+          </h1>
           <div className="profile__input-container">
-            <h2 className="profile__input-name">Имя</h2>
+            <h2 className="profile__input-name">{NAME[language]}</h2>
             <input
               type="text"
               name="name"
@@ -56,10 +79,11 @@ export default function Register({ onInfoTooltip, user = "Виталий" }) {
               required
               className="profile__input"
               onChange={handleChange}
-              value={name}
+              value={name || ""}
+              pattern={REG_NAME}
             />
           </div>
-          <span className="profile__input-error">{errName}</span>
+          <span className="profile__input-error">{errors.name}</span>
           <div className="profile__underline"></div>
           <div className="profile__input-container">
             <h2 className="profile__input-name">E-mail</h2>
@@ -73,16 +97,17 @@ export default function Register({ onInfoTooltip, user = "Виталий" }) {
               required
               className="profile__input "
               onChange={handleChange}
-              value={email}
+              value={email || ""}
+              pattern={REG_EMAIL}
             />
           </div>
-          <span className="profile__input-error">{errEmail}</span>
-          <button type="submit" className="profile__submit">
-            Редактировать
+          <span className="profile__input-error">{errors.email}</span>
+          <button type="submit" className={submitClassName}>
+            {EDIT[language]}
           </button>
         </form>
         <button type="button" className="profile__signout" onClick={handleSignOut}>
-          Выйти из аккаунта
+          {SIGN__OUT[language]}
         </button>
       </div>
     </>
