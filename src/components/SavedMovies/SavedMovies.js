@@ -52,6 +52,7 @@ function SavedMovies() {
         .finally(() => dispatch(setLoader(false)));
     };
     checkMovies();
+    setIsShort(false);
   }, []);
 
   useEffect(() => {
@@ -69,7 +70,7 @@ function SavedMovies() {
           <Navigation></Navigation>
         </Header>
         <main>
-          <SearchForm onSearchMovies={handleSearchMovie} onChangeShort={handleChangeShort}></SearchForm>
+          <SearchForm onSearchMovies={handleSearchMovie} onChangeShort={handleChangeShort} isSavedMovies={true}></SearchForm>
           {filteredMovies.length === 0 ? (
             moviesName && !isLoading && <p className="movies__search-result">{MESSAGE_NOT_FOUND[language]}</p>
           ) : (

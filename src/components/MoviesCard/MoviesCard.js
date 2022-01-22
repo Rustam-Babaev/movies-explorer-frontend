@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import Spinner from "../Spinner/Spinner";
 
 function MoviesCard({ card, isSavedCards = false, onCardLike, onCardDelete }) {
+  const language = useSelector((state) => state.language.language);
   const deleteLoadingId = useSelector((state) => state.loader.deleteLoadingId);
   const savedMovies = useSelector((state) => state.movies.savedMovies);
   const [isSaved, setIsSaved] = useState(false);
@@ -27,7 +28,7 @@ function MoviesCard({ card, isSavedCards = false, onCardLike, onCardDelete }) {
       </a>
       <figcaption className="movies-card__footer">
         <div className="movies-card__description-container">
-          <h2 className="movies-card__title">{card.nameRU}</h2>
+          <h2 className="movies-card__title">{language === "ru" ? card.nameRU : language === "en" && card.nameEN}</h2>
           {isSavedCards ? (
             deleteLoadingId === card._id ? (
               <Spinner></Spinner>
