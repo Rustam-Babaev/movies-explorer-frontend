@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { useFormWithValidation } from "../../hooks/useFormWithValidation/useFormWithValidation";
 import { MOVIES, SHORT__MOVIE, SEARCH } from "../../utils/constants";
 
-function SearchForm({ onSearchMovies, onChangeShort, moviesName }) {
+function SearchForm({ onSearchMovies, onChangeShort, moviesName, isSavedMovies = false }) {
   const isLoading = useSelector((state) => state.loader.isLoading);
   const language = useSelector((state) => state.language.language);
   const searchWord = moviesName ? moviesName : MOVIES[language];
@@ -44,7 +44,7 @@ function SearchForm({ onSearchMovies, onChangeShort, moviesName }) {
             name="filterShortMovie"
             className={checkboxClassName}
             onChange={handleChangeCheckbox}
-            defaultChecked={localStorage.getItem("isShort") === "true" ? true : false}
+            defaultChecked={localStorage.getItem("isShort") === "true" ? !isSavedMovies && true : false}
             disabled={isLoading}
           />
           <label htmlFor="filterShortMovie" className="search-form__checkbox-flag"></label>
